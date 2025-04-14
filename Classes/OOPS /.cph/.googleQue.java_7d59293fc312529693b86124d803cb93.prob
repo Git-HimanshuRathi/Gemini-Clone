@@ -1,0 +1,1 @@
+{"name":"Local: googleQue","url":"/Users/hmshuu/Desktop/Classes/ICP/OOPS /googleQue.java","tests":[{"id":1734067957281,"input":"6\n4\n2 4 1 \n3 5 2 \n1 4 4 \n0 0 10","output":"10 -6 1 2 0 -5 "}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/hmshuu/Desktop/Classes/ICP/OOPS /googleQue.java","group":"local","local":true}

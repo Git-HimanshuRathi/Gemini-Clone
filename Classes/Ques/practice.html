@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+   <script>
+
+    
+    //Easy !
+    //que 1 
+    const a = document.getElementById('header-title')
+    a.innerText = "Welcome to the DOM Practice!"
+    console.log(a)
+
+    //que2
+    const b = document.querySelectorAll('li')
+    b.style.color = 'light blue'
+
+    //que3 
+    const c = document.createElement('p')
+    c.innerText = "this is a new paragraph"
+    document.querySelector('body').appendChild(c)
+    console.log(c)
+
+    //que4 
+    const d = document.querySelector('h1')
+    d.style.fontSize = '36px'
+    console.log(d)
+
+    //que5
+    const e = document.querySelector('#profile-pic')
+    e.src= 'https://via.placeholder.com/150'
+    console.log(e)
+
+    //que6 
+    const f = document.querySelectorAll('p')
+
+    for(let i = 0 ; i < f.length ; i++){
+        f[i].style.color = 'orange'
+    }
+    console.log(f)
+
+    //que7
+    const g = document.querySelector('button')
+    g.addEventListener('click', function(e){
+        console.log('button clicked')
+    })
+
+    //que8 DOUBT
+
+
+    //que9 DOUBT
+    const h = document.querySelector('#toggle-btn')
+    h.addEventListener('click', function(e){
+        
+    })
+
+    //que10 
+    const i = document.querySelector('#delete-me')
+    i.remove()
+
+    //Medium !
+    //que1 
+    const j = document.createElement('ul')
+
+    for(let i = 1 ; i < 6 ; i++){
+        const a = document.createElement('li')
+        a.innerText = 'item'+i                
+        j.appendchild(a)                   
+    }        
+    document.getElementById('#list-container').appendChild(j)
+
+    //que2 
+    const l = document.querySelectorAll('update-text')
+
+    for(let i = 0 ; i < l.length ; i++){
+       l[i].innerText = 'Updated Text'
+    }
+
+    //que3 
+    const m = document.getElementById('#parent-list')
+    m.addEventListener('click', function(e){
+        if(e.target.tagName == 'li'){
+            console.log('li item clicked')
+        }
+    })
+
+    //que4
+    const n = document.getElementById('#close-popup')
+    n.addEventListener('click', function(e){
+        const a = document.getElementById('#popup-box')
+        a.style.display = 'none'
+    })
+
+    //que5
+    const o = document.createElement('table')
+
+       const a = document.createElement('tr')
+       for(let i = 1 ; i <= 3 ; i++){
+          for(let j = 1 ; j <= 3 ; j++){
+            const b = document.createElement('td')
+            a.appendChild(b)
+        }
+        o.appendChild(a)
+    }
+    document.getElementById('#table-container').appendChild(o)
+
+    //que6
+    const p =  document.getElementById('#submit-btn')
+    p.addEventListener('click', function(e){ 
+      e.target.disabled = true
+    });
+
+    //que7 DOUBT
+    const q = document.querySelector('h2')
+    q.addEventListener('input', function(e){
+        const a = document.getElementById('#dynamic-title')
+        a.innerText = a 
+    })
+
+    //que8 DOUBT
+
+    //que9 TO REPEAT 
+    function startCountdown() {
+      const countdownElement = document.getElementById("countdown");
+      let time = 10;
+
+      const timer = setInterval(() => {
+        if (time >= 0) {
+          countdownElement.textContent = time;
+          time--;
+        } 
+      }, 1000);                                             
+    }
+    document.getElementById("start-timer").addEventListener("click", startCountdown);
+
+    //que10
+    const errorContainer = document.querySelector(".error-container");
+    const s = errorContainer.querySelectorAll("p");
+    for (let i = 0; i < s.length; i++){
+        s[i].classList.add("error-message");
+    }
+
+    //Hard ! 
+
+   </script>
+    
+</body>
+</html>

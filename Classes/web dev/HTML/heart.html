@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Shape in CSS</title>
+    <style>
+        .heart-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            transform: rotate(-45deg);
+            margin: 50px auto;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            border: 10px;
+            border-color: black;
+            transition-duration: 5s;
+
+        }
+        .heart-container::before,
+        .heart-container::after {
+            content: "I LOVE RUDRAY";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        .heart-container::before {
+            top: -50px;
+            left: 0;
+            transition-duration: 5sec;
+        }
+
+        .heart-container::after {
+            left: 50px;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heart-container"></div>
+  
+
+</body>
+</html>

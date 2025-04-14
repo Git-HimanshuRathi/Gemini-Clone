@@ -1,0 +1,1 @@
+{"name":"Local: diagonalMatrix","url":"/Users/hmshuu/Desktop/web dev classes/intro to JAVA/diagonalMatrix.java","tests":[{"id":1729627535773,"input":"3\n1 2 3\n4 5 6\n5 6 7 ","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/hmshuu/Desktop/web dev classes/intro to JAVA/diagonalMatrix.java","group":"local","local":true}

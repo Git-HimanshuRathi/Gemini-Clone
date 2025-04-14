@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 5px 0;
+    }
+    button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dynamic To-Do List</h1>
+  <input type="text" id="task-input" placeholder="Enter a new task">
+  <button id="add-task-btn">Add Task</button>
+  <button id="clear-all-btn">Clear All Tasks</button>
+
+  <script>
+      // JavaScript code goes here
+    const clearAll = document.querySelector('#clear-all-btn')
+    const button = document.querySelector('#add-task-btn')
+    const input = document.querySelector('#task-input')
+    const body = document.querySelector('body')
+
+    button.addEventListener('click', function(){
+        let para = document.createElement('p')
+        para.innerText = input.value 
+        body.appendChild(para)
+
+        let del = document.createElement('button')
+        del.innerText = 'delete button'
+        para.appendChild(del)
+        del.addEventListener('click', function(){
+            para.remove()
+        })
+
+        const clearList = document.querySelectorAll('p')
+        clearAll.addEventListener('click' , function(){
+           for(let i = 0 ; i < clearList.length ; i++){
+              clearList[i].remove() 
+           }
+        })
+    })
+
+    
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"name":"Local: subArray","url":"/Users/hmshuu/Desktop/Classes/ICP/OOPS /subArray.java","tests":[{"id":1733725486660,"input":"3\n1 2 3","output":"1 \n1 2 \n1 2 3 \n2 \n2 3 \n3 "}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/hmshuu/Desktop/Classes/ICP/OOPS /subArray.java","group":"local","local":true}

@@ -1,0 +1,20 @@
+set ith bit 
+
+n = n | (1 << i)
+
+unset ith bit 
+
+n = n & ~(1 << i)
+
+toggle ith bit
+
+n = n ^ (1 << i)
+
+check ith bit
+
+boolean isSet = (n & (1 << i)) != 0
+
+Power of 2
+
+(x & (x - 1)) == 0 (only 1 set bit)
+

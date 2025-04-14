@@ -1,0 +1,1 @@
+{"name":"Local: strtEnd","url":"/Users/hmshuu/Desktop/Classes/ICP/OOPS /strtEnd.java","tests":[{"id":1733897822432,"input":"10\n3 2 -1 0 1 4 5 2 1 0\n4\n1 5\n4 9 \n1 1\n0 2","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/hmshuu/Desktop/Classes/ICP/OOPS /strtEnd.java","group":"local","local":true}
