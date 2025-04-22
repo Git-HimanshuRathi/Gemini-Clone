@@ -2,75 +2,82 @@ import { useState, useCallback } from 'react';
 import geminiAPI from '../config/gemini';
 
 export const useGemini = () => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [resultText, setResultText] = useState('');
 
-    const generateResponse = useCallback(async (prompt) => {
-        try {
-            setLoading(true);
-            setError(null);
-            
-            // Log the prompt for debugging
-            console.log("Sending prompt to Gemini API:", prompt.substring(0, 50) + "...");
-            
-            const result = await geminiAPI.generateResponse(prompt);
-            setResponse(result);
-            return result;
-        } catch (err) {
-            console.error("Gemini API Error:", err);
-            
-            // Provide more specific error messages
-            let errorMessage = err.message || 'Failed to generate response';
-            
-            if (errorMessage.includes("API key")) {
-                errorMessage = "API key error. Please check your environment variables.";
-            } else if (errorMessage.includes("model")) {
-                errorMessage = "Model configuration error. Please check the API documentation.";
-            } else if (errorMessage.includes("404")) {
-                errorMessage = "API endpoint not found. The model may not be available in your region or with your API key.";
-            }
-            
-            setError(errorMessage);
-            throw new Error(errorMessage);
-        } finally {
-            setLoading(false);
+  const generateResponse = useCallback(async (userInput) => {
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      console.log("Prompt sent to Gemini:", userInput);
+
+      const response = await geminiAPI.generateResponse(userInput);
+      setResultText(response);
+
+      return response;
+    } catch (e) {
+      console.log("Something went wrong with Gemini API:", e);
+
+      let errText = 'Failed to generate response';
+
+      if (e.message) {
+        errText = e.message;
+
+        if (e.message.includes('API key')) {
+          errText = 'API key seems to be invalid or missing.';
+        } else if (e.message.includes('model')) {
+          errText = 'There might be a model issue. Check API docs.';
+        } else if (e.message.includes('404')) {
+          errText = 'Couldn’t find the API endpoint. Double-check URL or key access.';
         }
-    }, []);
+      }
 
-    const generateImage = useCallback(async (prompt) => {
-        try {
-            setLoading(true);
-            setError(null);
-            const result = await geminiAPI.generateImage(prompt);
-            setResponse(result);
-            return result;
-        } catch (err) {
-            console.error("Gemini API Error:", err);
-            
-            // Provide more specific error messages
-            let errorMessage = err.message || 'Failed to generate image';
-            
-            if (errorMessage.includes("API key")) {
-                errorMessage = "API key error. Please check your environment variables.";
-            } else if (errorMessage.includes("model")) {
-                errorMessage = "Model configuration error. Please check the API documentation.";
-            } else if (errorMessage.includes("404")) {
-                errorMessage = "API endpoint not found. The model may not be available in your region or with your API key.";
-            }
-            
-            setError(errorMessage);
-            throw new Error(errorMessage);
-        } finally {
-            setLoading(false);
+      setErrorMessage(errText);
+      throw new Error(errText);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const generateImage = useCallback(async (text) => {
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const response = await geminiAPI.generateImage(text);
+      setResultText(response);
+      return response;
+    } catch (e) {
+      console.log("Image generation error:", e);
+
+      let errText = 'Something went wrong generating image';
+
+      if (e.message) {
+        errText = e.message;
+
+        if (e.message.includes('API key')) {
+          errText = 'API key seems to be invalid or missing.';
+        } else if (e.message.includes('model')) {
+          errText = 'Model config seems wrong. Check docs maybe.';
+        } else if (e.message.includes('404')) {
+          errText = 'Couldn’t reach image endpoint. Check URL or access.';
         }
-    }, []);
+      }
 
-    return {
-        loading,
-        error,
-        response,
-        generateResponse,
-        generateImage,
-    };
-}; 
+      setErrorMessage(errText);
+      throw new Error(errText);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  return {
+    loading: loading,
+    error: errorMessage,
+    response: resultText,
+    generateResponse: generateResponse,
+    generateImage: generateImage,
+  };
+};

@@ -4,65 +4,74 @@ import Sidebar from './components/Sidebar/Sidebar'
 import Main from './components/Main/Main'
 
 function App() {
-  // State for dark mode with localStorage persistence
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem('darkMode');
-    return saved ? JSON.parse(saved) : false;
-  });
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+  const [currentChat, setCurrentChat] = useState(Date.now().toString())
 
-  // State for sidebar collapsed state
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
-  // State for current chat
-  const [currentChat, setCurrentChat] = useState(Date.now().toString());
+  useEffect(() => {
+    let saved = localStorage.getItem('darkMode')
+    if (saved !== null) {
+      setIsDarkMode(JSON.parse(saved))
+    }
+  }, [])
 
-  // Toggle dark mode
   const toggleDarkMode = () => {
-    setIsDarkMode(prev => !prev);
-    localStorage.setItem('darkMode', !isDarkMode);
-  };
+    let newMode = !isDarkMode
+    setIsDarkMode(newMode)
+    localStorage.setItem('darkMode', JSON.stringify(newMode))
+  }
 
-  // Toggle sidebar collapsed state
   const toggleSidebar = () => {
-    setIsSidebarCollapsed(prev => !prev);
-  };
+    setIsSidebarCollapsed(!isSidebarCollapsed)
+  }
 
-  // Handle new chat
-  const handleNewChat = (newChatId) => {
-    setCurrentChat(newChatId);
-  };
+  const handleNewChat = (id) => {
+    setCurrentChat(id)
+  }
 
-  // Handle new message
   const handleNewMessage = (message) => {
-    // Save the message to recent chats
-    const recentChats = JSON.parse(localStorage.getItem('recentChats') || '[]');
-    const newChat = {
+    let recentChats = localStorage.getItem('recentChats')
+    if (recentChats) {
+      recentChats = JSON.parse(recentChats)
+    } else {
+      recentChats = []
+    }
+
+    let title = message.length > 30 ? message.substring(0, 30) + "..." : message
+    let chat = {
       id: Date.now(),
-      title: message.length > 30 ? message.substring(0, 30) + '...' : message,
+      title: title,
       timestamp: new Date().toISOString()
-    };
-    const updatedChats = [newChat, ...recentChats].slice(0, 5);
-    localStorage.setItem('recentChats', JSON.stringify(updatedChats));
-  };
+    }
+
+    recentChats.unshift(chat)
+
+    if (recentChats.length > 5) {
+      recentChats = recentChats.slice(0, 5)
+    }
+
+    localStorage.setItem('recentChats', JSON.stringify(recentChats))
+  }
 
   return (
-    <div className={`flex ${isDarkMode ? 'bg-[#1a1a1a]' : 'bg-white'}`}>
+    <div className={isDarkMode ? 'flex bg-[#1a1a1a]' : 'flex bg-white'}>
       <Sidebar 
-        isDarkMode={isDarkMode} 
-        toggleDarkMode={toggleDarkMode} 
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
         onNewChat={handleNewChat}
         toggleSidebar={toggleSidebar}
         isCollapsed={isSidebarCollapsed}
       />
       <Main 
-        isDarkMode={isDarkMode} 
+        isDarkMode={isDarkMode}
         currentChat={currentChat}
         onNewMessage={handleNewMessage}
         isSidebarCollapsed={isSidebarCollapsed}
         toggleSidebar={toggleSidebar}
       />
     </div>
-  );
+  )
 }
 
 export default App
